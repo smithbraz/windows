@@ -182,11 +182,11 @@ C:\> net user
 
 ## Baixando arquivos
 cmd = certutil -urlcache -split -f  
-link = https://raw.githubusercontent.com/smithbraz/scripts-powershell/refs/heads/main/info.ps1 
+link = https://raw.githubusercontent.com/smithbraz/windows/refs/heads/main/scripts-powershell/info.ps1
 file = info.ps1
 
 ```
-C:\Users\admin> certutil -urlcache -split -f https://raw.githubusercontent.com/smithbraz/scripts-powershell/refs/heads/main/info.ps1 info.ps1
+C:\Users\admin> certutil -urlcache -split -f https://raw.githubusercontent.com/smithbraz/windows/refs/heads/main/scripts-powershell/info.ps1 info.ps1
 
 C:\Users\admin> dir
 03/27/2026    06:17 PM   834   info.ps1
