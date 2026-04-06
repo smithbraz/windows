@@ -1,5 +1,7 @@
 # PowerShell Commands
 
+## Basic Commands
+
 ### Lista todos os comandos disponíveis no PowerShell.
 ```
 Get-Command 
@@ -133,6 +135,170 @@ Get-Service | findstr Running
 Get-FileHash -Path .\new.txt
 ```
 
+## Active Directory (AD) Enumeration
+
+### Baixando o Power View:
+```
+wget https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/refs/heads/master/Recon/PowerView.ps1
+```
+### Executando o powershell com bypass da execução de scripts
+```
+powershell -ep bypass
+```
+### Importando o módulo PowerView
+```
+. .\PowerView.ps1
+```
+### Enumeração de Domínio
+- Enumeração de Domínio
+
+Obtém informações sobre o domínio atual ou especificado
+```
+Get-Domain
+```
+Lista os controladores de domínio
+```
+Get-DomainController
+```
+Enumera relações de confiança entre domínios
+```
+Get-DomainTrust
+```
+Retorna informações sobre a floresta AD
+```
+Get-Forest
+```
+Lista todos os domínios dentro da floresta
+```
+Get-ForestDomain
+```
+Mostra relações de confiança entre florestas
+```
+Get-ForestTrust
+```
+
+- Usuários e Grupos
+
+Enumera usuários do AD com atributos detalhados.
+```
+Get-DomainUser
+```
+Lista grupos do AD
+```
+Get-DomainGroup
+```
+Mostra membros de um grupo específico
+```
+Get-DomainGroupMember
+```
+Identifica onde usuários estão logados
+```
+Find-DomainUserLocation
+```
+Obtém ACLs associadas a objetos de usuários/grupos.
+```
+Get-DomainObjectAcl
+```
+
+- Computadores e Sessões
+Lista computadores do domínio
+```
+Get-DomainComputer
+```
+Mostra sessões ativas em máquinas remotas
+```
+Get-NetSession
+```
+Enumera usuários logados em um computador remoto
+```
+Get-NetLoggedon
+```
+Verifica usuários logados localmente
+```
+Get-LoggedOnLocal
+```
+Busca processos em execução em máquinas do domínio
+```
+Find-DomainProcess
+```
+
+- ACLs e Permissões
+Obtém ACLs de objetos no AD
+```
+Get-DomainObjectAcl
+```
+Adiciona permissões a objetos
+```
+Add-DomainObjectAcl
+```
+Remove permissões
+```
+Remove-DomainObjectAcl
+```
+Escaneia ACLs em busca de permissões excessivas
+```
+Invoke-ACLScanner
+```
+
+- Compartilhamentos e Serviços
+Lista compartilhamentos de rede em computadores.
+```
+Get-NetShare
+```
+Enumera servidores de arquivos
+```
+Get-NetFileServer
+```
+Lista serviços em execução em máquinas remotas
+```
+Get-NetService
+```
+Busca compartilhamentos acessíveis no domínio
+```
+Find-DomainShare
+```
+
+- Reconhecimento Avançado
+Identifica máquinas onde o usuário atual tem acesso de administrador local.
+```
+Find-LocalAdminAccess
+```
+Localiza onde usuários específicos estão logados
+```
+Invoke-UserHunter
+```
+Localiza processos específicos em máquinas do domínio
+```
+Invoke-ProcessHunter
+```
+Busca compartilhamentos acessíveis
+```
+Invoke-ShareFinder
+```
+Enumera administradores locais em máquinas remotas.
+```
+Invoke-EnumerateLocalAdmin
+```
+
+### Considerações Importantes
+• O PowerView é uma ferramenta de pentest/red team e também usada em pesquisas de segurança.
+• Seu uso em ambientes sem autorização pode ser considerado atividade maliciosa.
+• Em ambientes corporativos, é utilizado para auditoria de segurança e identificação de configurações incorretas no Active Directory
+
+## Bloodhound com SharpHound
+
+### Baixando o SharpHound:
+```
+wget https://raw.githubusercontent.com/BloodHoundAD/BloodHound/refs/heads/master/Collectors/SharpHound.ps1
+```
+### Importando o módulo SharpHound:
+```
+. .\SharpHound.ps1
+```
+### Extraindo dados do AD
+```
+Invoke-BloodHound -CollectionMethods All -Domain dominio.com -ZipFilename dominio.zip
+```
 
 # Aviso de Isenção de Responsabilidade – Material de Red Team
 Este material destina-se exclusivamente a fins educacionais, acadêmicos e de conscientização em segurança da informação. As técnicas, exemplos e cenários aqui descritos têm como objetivo demonstrar vulnerabilidades potenciais e auxiliar profissionais de segurança na prevenção, detecção e resposta a ameaças.
