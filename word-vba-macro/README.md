@@ -247,7 +247,7 @@ Sub RedScan()
 End Sub
 ```
 
-### Abrir o CMD
+### Executar o CMD em background
 ```
 Sub Document_Open()
     RedScan
@@ -277,7 +277,7 @@ Sub RedScan()
     Shell str, vbHide
 End Sub
 ```
-### CMD
+### Abrir o CMD
 ```
 Sub AutoOpen()
   RedScan
@@ -290,7 +290,7 @@ Sub RedScan()
 End Sub
 ```
 
-### PowerShell
+### Abrir o PowerShell
 ```
 Sub AutoOpen()
   RedScan
