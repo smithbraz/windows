@@ -8,21 +8,21 @@ Set-ExecutionPolicy Unrestricted
 
 ### Laços de repetição no PowerShell
 ```
-foreach ($ip in 1..10) {echo "192.168.2.$ip"}
+foreach ($ip in 1..10) {echo "192.168.52.$ip"}
 ```
 
 ### Filtrando o resultado do ping
 Realizando o ping uma única vez
 ```
-ping 192.168.2.1 -n 1
+ping 192.168.52.1 -n 1
 ```
 Filtrando pelo resultado de retorno
 ```
-ping 192.168.2.1 -n 1 | Select-String "bytes=32"
+ping 192.168.52.1 -n 1 | Select-String "bytes=32"
 ```
 Criando uma variável para armazenar o resultado do comando
 ```
-$res = ping 192.168.2.1 -n 1 | Select-String "bytes=32"
+$res = ping 192.168.52.1 -n 1 | Select-String "bytes=32"
 ```
 Cortando o resultado com o endereço de IP somente
 ```
@@ -34,15 +34,15 @@ $res.Line.Split('')[2] -replace ":",""
 ```
 Identificando porta 80 aberta com PowerShell
 ```
-Test-NetConnection 192.168.2.1 -Port 80
+Test-NetConnection 192.168.52.1 -Port 80
 ```
 Identificando porta 80 aberta com PowerShell com saída simplificada
 ```
-Test-NetConnection 192.168.2.1 -Port 80 -WarningAction SilentlyContinue -InformationLevel Quiet
+Test-NetConnection 192.168.52.1 -Port 80 -WarningAction SilentlyContinue -InformationLevel Quiet
 ```
 Verificando de a porta está aberta ou fechada
 ```
-if (Test-NetConnection 192.168.2.1 -Port 80 -WarningAction SilentlyContinue -InformationLevel Quiet) {echo "Port Opened"} else {echo "Port Closed"}
+if (Test-NetConnection 192.168.52.1 -Port 80 -WarningAction SilentlyContinue -InformationLevel Quiet) {echo "Port Opened"} else {echo "Port Closed"}
 ```
 Interagindo com serviços Web utilizando o PowerShell
 ```
